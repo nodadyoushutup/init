@@ -3,8 +3,8 @@ name: Build and Push Docker Image
 on:
   push:
     branches: [ main ]
-    tags:       # Add this to handle version tags
-      - '*'    # This pattern matches all tags
+    tags:
+      - '*'
   pull_request:
     branches: [ main ]
 
