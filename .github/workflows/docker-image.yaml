@@ -1,13 +1,13 @@
 name: Build and Push Docker Image
 
 on:
-  # Triggers the workflow on push or pull request events for the main branch
   push:
     branches: [ main ]
+    tags:       # Add this to handle version tags
+      - '*'    # This pattern matches all tags
   pull_request:
     branches: [ main ]
 
-  # Allows manual execution of the workflow from the Actions tab
   workflow_dispatch:
 
 jobs:
