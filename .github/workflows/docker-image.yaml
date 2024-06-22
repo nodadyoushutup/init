@@ -1,9 +1,14 @@
 name: Build and Push Docker Image
 
 on:
+  # Triggers the workflow on push or pull request events for the main branch
   push:
-    branches:
-      - main
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows manual execution of the workflow from the Actions tab
+  workflow_dispatch:
 
 jobs:
   build:
@@ -12,33 +17,36 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ghcr.io/${{ github.repository_owner }}/init
+          tags: |
+            type=ref,event=pr
+            type=ref,event=branch
+            type=ref,event=tag
+            type=sha
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v2
 
       - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v3
+        if: ${{ github.event_name != 'pull_request' }}
+        uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR_PAT }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v4
         with:
           context: .
-          push: true
-          tags: |
-            ghcr.io/nodadyoushutup/init:latest
-            ghcr.io/nodadyoushutup/init:${{ github.sha }}
-
-      - name: Tag Docker image with version (optional)
-        if: contains(github.ref, 'refs/tags')
-        run: |
-          echo "Tagging Docker image with version"
-          IMAGE_TAG="ghcr.io/nodadyoushutup/init:${{ github.ref_name }}"
-          docker tag ghcr.io/nodadyoushutup/init:latest $IMAGE_TAG
-          docker push $IMAGE_TAG
+          platforms: linux/amd64
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
