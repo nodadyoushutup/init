@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo "Hello, World 0.0.2!"
+echo "Hello, World 0.0.3!"
