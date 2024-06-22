@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo "Hello, World 0.0.3!"
+echo "Hello, I am version 0.0.1!"
