@@ -28,7 +28,6 @@ jobs:
           tags: |
             type=ref,event=branch     # Tags for branches (e.g., main)
             type=ref,event=tag        # Tags for git tags (e.g., 0.0.4)
-            type=sha,format=long      # Long format SHA (full SHA-1)
             type=sha,format=short     # Short format SHA (first 7 characters)
 
       - name: Set up Docker Buildx
