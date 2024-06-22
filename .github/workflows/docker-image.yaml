@@ -32,13 +32,13 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/nodadyoushutup/init/hello-world:latest
-            ghcr.io/nodadyoushutup/init/hello-world:${{ github.sha }}
+            ghcr.io/nodadyoushutup/hello-world:latest
+            ghcr.io/nodadyoushutup/hello-world:${{ github.sha }}
 
       - name: Tag Docker image with version (optional)
         if: contains(github.ref, 'refs/tags')
         run: |
           echo "Tagging Docker image with version"
-          IMAGE_TAG="ghcr.io/nodadyoushutup/init/hello-world:${{ github.ref_name }}"
-          docker tag ghcr.io/nodadyoushutup/init/hello-world:latest $IMAGE_TAG
+          IMAGE_TAG="ghcr.io/nodadyoushutup/hello-world:${{ github.ref_name }}"
+          docker tag ghcr.io/nodadyoushutup/hello-world:latest $IMAGE_TAG
           docker push $IMAGE_TAG

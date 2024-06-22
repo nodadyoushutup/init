@@ -1,5 +1,6 @@
 # Use a base image with bash installed
 FROM ubuntu:latest
+LABEL org.opencontainers.image.source https://github.com/nodadyoushutup/init
 
 # Set the working directory inside the container
 WORKDIR /app
