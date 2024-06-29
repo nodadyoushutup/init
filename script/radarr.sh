@@ -10,18 +10,3 @@ if [ ! -f /app/config.xml ]; then
 else
     echo "/app/config.xml already exists."
 fi
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-sleep 1000000000000000
