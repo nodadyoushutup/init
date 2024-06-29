@@ -1,0 +1,21 @@
+services:
+  init:
+    image: init:latest
+    container_name: init
+    volumes:
+      - type: bind
+        source: ~/.kube
+        target: /opt/bitnami/kubectl/.kube
+      # - type: bind
+      #   source: ./bootstrap
+      #   target: /bootstrap
+      # - type: bind
+      #   source: ./script
+      #   target: /script
+      # - type: bind
+      #   source: ./conf
+      #   target: /conf
+    environment:
+      - NAMESPACE=radarr
+      - KUBECONFIG=/opt/bitnami/kubectl/.kube/config
+    command: ["/script/radarr.sh"]
