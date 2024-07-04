@@ -1,6 +1,7 @@
 services:
   init:
-    image: init:latest
+    # image: init:latest
+    image: ghcr.io/nodadyoushutup/init:latest
     container_name: init
     volumes:
       - type: bind
