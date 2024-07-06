@@ -46,7 +46,7 @@ set-config(){
   fi
 }
 
-set-config-envs(){
+set-envs(){
   case "$NAMESPACE" in
     prowlarr-movie)
       CONFIG_SOURCE="/config/prowlarr/movie-config.xml"

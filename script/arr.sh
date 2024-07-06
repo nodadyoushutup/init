@@ -5,5 +5,5 @@ source /script/utils.sh
 
 namespace-check
 pvc-bound
-set-config-envs
+set-envs
 set-config
