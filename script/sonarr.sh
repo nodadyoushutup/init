@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /script/utils.sh
+source utils.sh
 pvc-bound
 
 if [ ! -f /app/config.xml ]; then
