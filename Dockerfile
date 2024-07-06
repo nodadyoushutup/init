@@ -27,7 +27,7 @@ COPY bootstrap/ /bootstrap/
 RUN chmod +x /script/*.sh
 
 # Define the entry point of the container
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/bin/bash", "-c"]
 
 # Default command to run if no command is specified
 CMD ["echo", "No command specified. Please specify a command."]
