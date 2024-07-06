@@ -5,4 +5,5 @@ source /script/utils.sh
 
 namespace-check
 pvc-bound
-set-arr-config
+set-config-envs
+set-config

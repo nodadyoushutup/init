@@ -10,4 +10,4 @@ services:
     environment:
       - NAMESPACE=radarr
       - KUBECONFIG=/opt/bitnami/kubectl/.kube/config
-    command: ["/script/radarr.sh"]
+    command: ["/script/arr.sh"]

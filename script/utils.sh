@@ -1,70 +1,6 @@
 #!/bin/bash
 # script/utils.sh
 
-# Function to find the most recent .tar file in a given directory containing a specific substring
-find_most_recent_tar() {
-  local directory=$1
-  local namespace="${2:-$NAMESPACE}"
-  local tar_files=($(ls -t "$directory"/*"$namespace"*.tar 2> /dev/null))
-
-  if [[ ${#tar_files[@]} -gt 0 ]]; then
-    echo "${tar_files[0]}"
-  else
-    echo ""
-  fi
-}
-
-# Function to clean up a directory
-cleanup_directory() {
-  local directory=$1
-
-  if [ -d "$directory" ]; then
-    echo "$directory exists. Cleaning up existing files."
-    rm -rf "$directory"/*
-  else
-    echo "$directory does not exist. Creating it."
-    mkdir -p "$directory"
-  fi
-}
-
-# Function to extract a .tar file to a given directory
-extract_tar_to_directory() {
-  local tar_file=$1
-  local target_directory=$2
-
-  echo "Extracting $tar_file into $target_directory."
-  tar -xvf "$tar_file" -C "$target_directory"
-}
-
-# Main bootstrap function, now taking namespace as a parameter
-bootstrap() {
-  local bootstrap_dir="/bootstrap"
-  local target_dir="$1"
-  local namespace="${2:-$NAMESPACE}"
-
-  if [ -z "$namespace" ]; then
-    echo "Error: Namespace must be provided either as an argument or as an environment variable."
-    return 1
-  fi
-
-  if [ ! -d "$bootstrap_dir" ]; then
-    echo "$bootstrap_dir directory not found. Skipping bootstrapping process."
-    return 1
-  fi
-
-  echo "Checking for .tar files in $bootstrap_dir containing '$namespace'."
-  local most_recent_tar_file=$(find_most_recent_tar "$bootstrap_dir" "$namespace")
-
-  if [[ -n "$most_recent_tar_file" ]]; then
-    echo "Found .tar file: $most_recent_tar_file"
-    cleanup_directory "$target_dir"
-    extract_tar_to_directory "$most_recent_tar_file" "$target_dir"
-    echo "Extraction completed."
-  else
-    echo "No .tar files found in $bootstrap_dir containing '$namespace'."
-  fi
-}
-
 pvc-bound(){
     local namespace="${1:-$NAMESPACE}"
 
@@ -89,11 +25,64 @@ namespace-check(){
   fi
 }
 
-set-arr-config(){
-  if [ ! -f /app/config.xml ]; then
-    echo "/app/config.xml does not exist. Copying from /script/${NAMESPACE}/config.xml."
-    cp /config/${NAMESPACE}/config.xml /app/config.xml
-  else
-      echo "/app/config.xml already exists."
+set-config(){
+  CONFIG_SOURCE=${1:-$CONFIG_SOURCE}
+  CONFIG_DESTINATION=${2:-$CONFIG_DESTINATION}
+
+  # Get the directory of the destination file
+  DEST_DIR=$(dirname "$CONFIG_DESTINATION")
+
+  # Create the destination directory if it does not exist
+  if [ ! -d "$DEST_DIR" ]; then
+    echo "Creating directory $DEST_DIR."
+    mkdir -p "$DEST_DIR"
   fi
+
+  if [ ! -f "$CONFIG_DESTINATION" ]; then
+    echo "$CONFIG_DESTINATION does not exist. Copying from $CONFIG_SOURCE."
+    cp "$CONFIG_SOURCE" "$CONFIG_DESTINATION"
+  else
+    echo "$CONFIG_DESTINATION already exists."
+  fi
+}
+
+set-config-envs(){
+  case "$NAMESPACE" in
+    prowlarr-movie)
+      CONFIG_SOURCE="/config/prowlarr/movie-config.xml"
+      CONFIG_DESTINATION="/app/config/config.xml"
+      ;;
+    prowlarr-television)
+      CONFIG_SOURCE="/config/prowlarr/television-config.xml"
+      CONFIG_DESTINATION="/app/config/config.xml"
+      ;;
+    prowlarr-music)
+      CONFIG_SOURCE="/config/prowlarr/music-config.xml"
+      CONFIG_DESTINATION="/app/config/config.xml"
+      ;;
+    prowlarr-book)
+      CONFIG_SOURCE="/config/prowlarr/book-config.xml"
+      CONFIG_DESTINATION="/app/config/config.xml"
+      ;;
+    prowlarr-cross-seed)
+      CONFIG_SOURCE="/config/prowlarr/cross-seed-config.xml"
+      CONFIG_DESTINATION="/app/config/config.xml"
+      ;;
+    radarr)
+      CONFIG_SOURCE="/config/radarr/config.xml"
+      CONFIG_DESTINATION="/app/config/config.xml"
+      ;;
+    sonarr)
+      CONFIG_SOURCE="/config/sonarr/config.xml"
+      CONFIG_DESTINATION="/app/config/config.xml"
+      ;;
+    lidarr)
+      CONFIG_SOURCE="/config/lidarr/config.xml"
+      CONFIG_DESTINATION="/app/config/config.xml"
+      ;;
+    *)
+      echo "Unknown NAMESPACE: $NAMESPACE"
+      exit 1
+      ;;
+  esac
 }
