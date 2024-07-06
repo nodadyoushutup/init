@@ -1,4 +1,5 @@
 #!/bin/bash
+# script/sonarr.sh
 
 source /script/utils.sh
 
