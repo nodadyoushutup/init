@@ -1,11 +1,7 @@
 #!/bin/bash
 
-source utils.sh
-pvc-bound
+source /script/utils.sh
 
-if [ ! -f /app/config.xml ]; then
-    echo "/app/config.xml does not exist. Copying from /script/sonarr/config.xml."
-    cp /config/sonarr/config.xml /app/config.xml
-else
-    echo "/app/config.xml already exists."
-fi
+namespace-check
+pvc-bound
+set-arr-config

@@ -1,12 +1,9 @@
 #!/bin/bash
 
-# Check if the NAMESPACE variable is set
-if [ -z "$NAMESPACE" ]; then
-    echo "NAMESPACE environment variable is not set."
-    exit 1
-fi
+source /script/utils.sh
 
-# Define the configuration file based on the NAMESPACE
+namespace-check
+pvc-bound
 case "$NAMESPACE" in
     prowlarr-movie)
         CONFIG_FILE="/config/prowlarr/movie-config.xml"
@@ -28,11 +25,4 @@ case "$NAMESPACE" in
         exit 1
         ;;
 esac
-
-# Check if the config.xml file exists
-if [ ! -f /app/config.xml ]; then
-    echo "/app/config.xml does not exist. Copying from $CONFIG_FILE."
-    cp "$CONFIG_FILE" /app/config.xml
-else
-    echo "/app/config.xml already exists."
-fi
+set-arr-config

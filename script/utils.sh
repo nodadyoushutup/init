@@ -1,4 +1,5 @@
 #!/bin/bash
+# script/utils.sh
 
 # Function to find the most recent .tar file in a given directory containing a specific substring
 find_most_recent_tar() {
@@ -78,4 +79,21 @@ pvc-bound(){
         sleep 2
     done
     echo "PVC is bound."
+}
+
+namespace-check(){
+  # Check if the NAMESPACE variable is set
+  if [ -z "$NAMESPACE" ]; then
+    echo "NAMESPACE environment variable is not set."
+    exit 1
+  fi
+}
+
+set-arr-config(){
+  if [ ! -f /app/config.xml ]; then
+    echo "/app/config.xml does not exist. Copying from /script/${NAMESPACE}/config.xml."
+    cp /config/${NAMESPACE}/config.xml /app/config.xml
+  else
+      echo "/app/config.xml already exists."
+  fi
 }
