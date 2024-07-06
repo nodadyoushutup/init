@@ -14,10 +14,10 @@
     <UrlBase></UrlBase>
     <InstanceName>Prowlarr</InstanceName>
     <UpdateMechanism>Docker</UpdateMechanism>
+    <PostgresMainDb>prowlarr-main-movie</PostgresMainDb>
+    <PostgresLogDb>prowlarr-log-movie</PostgresLogDb>
     <PostgresUser>prowlarr</PostgresUser>
     <PostgresPassword>prowlarr</PostgresPassword>
     <PostgresPort>5432</PostgresPort>
     <PostgresHost>192.168.0.102</PostgresHost>
-    <PostgresMainDb>prowlarr-main-movie</PostgresMainDb>
-    <PostgresLogDb>prowlarr-log-movie</PostgresLogDb>
 </Config>

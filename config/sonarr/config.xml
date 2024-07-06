@@ -1,23 +1,23 @@
 <Config>
   <BindAddress>*</BindAddress>
-  <Port>7878</Port>
+  <Port>8989</Port>
   <SslPort>9898</SslPort>
   <EnableSsl>False</EnableSsl>
   <LaunchBrowser>True</LaunchBrowser>
-  <ApiKey>d9bac69600744fc6900565db46c1c87e</ApiKey>
+  <ApiKey>00aa4b31bc9a452bbe7c72f56f27d4f4</ApiKey>
   <AuthenticationMethod>Forms</AuthenticationMethod>
   <AuthenticationRequired>DisabledForLocalAddresses</AuthenticationRequired>
-  <Branch>master</Branch>
+  <Branch>main</Branch>
   <LogLevel>trace</LogLevel>
   <SslCertPath></SslCertPath>
   <SslCertPassword></SslCertPassword>
   <UrlBase></UrlBase>
-  <InstanceName>Radarr</InstanceName>
+  <InstanceName>Sonarr</InstanceName>
   <UpdateMechanism>Docker</UpdateMechanism>
-  <PostgresMainDb>radarr-main</PostgresMainDb>
-  <PostgresLogDb>radarr-log</PostgresLogDb>
-  <PostgresUser>radarr</PostgresUser>
-  <PostgresPassword>radarr</PostgresPassword>
+  <PostgresMainDb>sonarr-main</PostgresMainDb>
+  <PostgresLogDb>sonarr-log</PostgresLogDb>
+  <PostgresUser>sonarr</PostgresUser>
+  <PostgresPassword>sonarr</PostgresPassword>
   <PostgresPort>5432</PostgresPort>
   <PostgresHost>192.168.0.102</PostgresHost>
   <AnalyticsEnabled>False</AnalyticsEnabled>
