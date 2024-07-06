@@ -1,8 +1,7 @@
 #!/bin/bash
 
-
-
-# source /script/utils.sh
+source /script/utils.sh
+pvc-bound
 
 if [ ! -f /app/config.xml ]; then
     echo "/app/config.xml does not exist. Copying from /script/radarr/config.xml."

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+source /script/utils.sh
+pvc-bound
+
 if [ ! -f /app/config.xml ]; then
     echo "/app/config.xml does not exist. Copying from /script/sonarr/config.xml."
     cp /config/sonarr/config.xml /app/config.xml
