@@ -1,5 +1,5 @@
 #!/bin/bash
-# script/radarr.sh
+# script/arr.sh
 
 source /script/utils.sh
 
