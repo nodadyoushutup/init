@@ -1,32 +1,3 @@
-# # Use a base image with bash installed
-# FROM bitnami/kubectl:latest
-# LABEL org.opencontainers.image.source https://github.com/nodadyoushutup/init
-
-# # Set the working directory inside the container
-# WORKDIR /app
-
-# # Switch to root to change permissions
-# USER root
-
-# # Copy the entire script directory into the container
-# COPY script/ /script/
-# COPY config/ /config/
-# COPY bootstrap/ /bootstrap/
-
-# # Ensure the scripts are executable
-# RUN chmod +x /script/*.sh
-
-# # Install bash if not already present
-# RUN apt-get update && apt-get install -y bash
-
-# # Define the entry point of the container
-# ENTRYPOINT ["/bin/bash", "/script/health.sh"]
-
-# # Default command to run if no command is specified
-# CMD ["echo", "No command specified."]
-
-#############################################################################
-
 # Use an Ubuntu base image
 FROM ubuntu:20.04
 
@@ -56,7 +27,7 @@ COPY bootstrap/ /bootstrap/
 RUN chmod +x /script/*.sh
 
 # Define the entry point of the container
-ENTRYPOINT ["/bin/bash", "/script/health.sh"]
+ENTRYPOINT ["/bin/bash"]
 
 # Default command to run if no command is specified
 CMD ["echo", "No command specified. Please specify a command."]
