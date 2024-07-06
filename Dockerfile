@@ -21,7 +21,6 @@ WORKDIR /app
 # Copy the entire script directory into the container
 COPY script/ /script/
 COPY config/ /config/
-COPY bootstrap/ /bootstrap/
 
 # Ensure the scripts are executable
 RUN chmod +x /script/*.sh
